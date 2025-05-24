@@ -1,11 +1,29 @@
 import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
 import login from "../../assets/login.png";
 import Header from "../Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const hardcodedEmail = "test@example.com";
+    const hardcodedPassword = "password123";
+
+    if (email === hardcodedEmail && password === hardcodedPassword) {
+      navigate("/emailVerification");
+    } else {
+      alert("Invalid email or password");
+    }
+  };
+
   return (
     <>
-      <Header/>
+      <Header />
       <Container
         fluid
         style={{ minHeight: "100vh", backgroundColor: "#f7f7f7" }}
@@ -13,11 +31,16 @@ const LoginPage = () => {
         <Row className="align-items-center" style={{ minHeight: "100vh" }}>
           <Col md={6} className="p-5">
             <h2 className="mb-4">Login</h2>
-            <Form>
+            <Form onSubmit={handleLogin}>
               <Form.Group className="mb-3" controlId="formEmail">
                 <Form.Label>Email</Form.Label>
                 <InputGroup>
-                  <Form.Control type="email" placeholder="Enter email" />
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                   <InputGroup.Text>
                     <i className="bi bi-info-circle"></i>
                   </InputGroup.Text>
@@ -27,7 +50,12 @@ const LoginPage = () => {
               <Form.Group className="mb-3" controlId="formPassword">
                 <Form.Label>Password</Form.Label>
                 <InputGroup>
-                  <Form.Control type="password" placeholder="Password" />
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                   <InputGroup.Text>
                     <i className="bi bi-eye-slash"></i>
                   </InputGroup.Text>

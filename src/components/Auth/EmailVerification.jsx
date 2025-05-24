@@ -1,7 +1,35 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import mail from "../../assets/mail.png";
 import Header from "../Navbar";
 const EmailVerification = () => {
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const navigate = useNavigate();
+
+  const handleVerify = () => {
+    if (otp.join("") === "000000") {
+      navigate("/changePassword");
+    } else {
+      alert("Invalid OTP");
+      setOtp(["", "", "", "", "", ""]);
+    }
+  };
+
+  const handleChange = (value, index) => {
+    if (/^\d$/.test(value)) {
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
+
+      // Move to the next input if it exists
+      if (index < otp.length - 1) {
+        const nextInput = document.getElementById(`otp-input-${index + 1}`);
+        if (nextInput) nextInput.focus();
+      }
+    }
+  };
+
   return (
     <>
       <Header />
@@ -19,16 +47,21 @@ const EmailVerification = () => {
                 <span style={{ fontSize: "24px", fontWeight: "bold" }}>
                   Email Verification
                 </span>
-                <p className="fs-5">Enter the 6 digit OTP we have send to your email </p>
+                <p className="fs-5">
+                  Enter the 6 digit OTP we have send to your email{" "}
+                </p>
               </div>
 
               <p>Enter the 6 digit OTP we have sent to your email</p>
               <div className="d-flex gap-2 mb-3">
                 {[...Array(6)].map((_, idx) => (
                   <input
+                    id={`otp-input-${idx}`}
                     key={idx}
                     type="text"
                     maxLength="1"
+                    value={otp[idx]}
+                    onChange={(e) => handleChange(e.target.value, idx)}
                     style={{
                       width: "50px",
                       height: "50px",
@@ -42,12 +75,19 @@ const EmailVerification = () => {
               </div>
               <p>
                 Didn’t receive an OTP?{" "}
-                <a style={{textDecoration:"none", color: "#007bff"}} href="#">
+                <a
+                  style={{ textDecoration: "none", color: "#007bff" }}
+                  href="#"
+                >
                   Resend
                 </a>
               </p>
 
-              <Button variant="primary" className="px-5">
+              <Button
+                variant="primary"
+                className="px-5"
+                onClick={handleVerify}
+              >
                 Verify
               </Button>
             </div>
