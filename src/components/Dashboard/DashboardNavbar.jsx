@@ -1,7 +1,9 @@
-const DashboardNavbar = () => {
+import React from "react";
+
+const DashboardNavbar = ({ onAddUser }) => {
   return (
     <nav
-    className="conatiner"
+    //   className="container"
       style={{
         display: "flex",
         justifyContent: "space-between",
@@ -31,6 +33,7 @@ const DashboardNavbar = () => {
 
         {/* Add User Button */}
         <button
+          onClick={onAddUser}
           style={{
             backgroundColor: "#007bff",
             color: "#fff",

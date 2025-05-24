@@ -1,4 +1,6 @@
-import { Container, Row, Col } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import Modal from "react-modal";
 import Header from "../Dashboard/DashboardNavbar";
 
 const users = [
@@ -86,9 +88,137 @@ const users = [
 
 // Added mobile responsiveness to the Dashboard component
 export default function Dashboard() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [step, setStep] = useState("personalDetails");
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setStep("personalDetails"); // Reset to the first step when closing
+  };
+    // Function to handle the next step in the modal
+  const handleNext = () => setStep("servicesDetails");
+    // Function to handle the previous step in the modal
+  const renderModalContent = () => (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        gap: "2rem",
+        flexWrap: "wrap",
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "200px",
+          borderRight: "2px solid #e0e0e0",
+          paddingBottom: "1rem",
+        }}
+      >
+        <h4 className="mb-4">Add User</h4>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              color: step === "personalDetails" ? "#0d6efd" : "#000",
+            }}
+          >
+            <div
+              style={{
+                width: "30px",
+                height: "30px",
+                borderRadius: "50%",
+                border: `2px solid ${step === "personalDetails" ? "#0d6efd" : "#ccc"}`,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              1
+            </div>
+            <span>Personal Details</span>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              color: step === "servicesDetails" ? "#0d6efd" : "#000",
+            }}
+          >
+            <div
+              style={{
+                width: "30px",
+                height: "30px",
+                borderRadius: "50%",
+                border: `2px solid ${step === "servicesDetails" ? "#0d6efd" : "#ccc"}`,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              2
+            </div>
+            <span>Services</span>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          flex: 1,
+          padding: "10px",
+          background: "#f0f0f0",
+          borderRadius: "20px",
+          width: "100%",
+        }}
+      >
+        <h5>Personal Details</h5>
+        <Form>
+          <Form.Group className="mb-3">
+            <Form.Label>Name</Form.Label>
+            <Form.Control type="text" placeholder="Enter name" />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>CNIC Number</Form.Label>
+            <Form.Control type="text" placeholder="Enter CNIC" />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Address</Form.Label>
+            <Form.Control type="text" placeholder="Enter address" />
+          </Form.Group>
+
+          <Row>
+            <Col>
+              <Form.Group className="mb-3">
+                <Form.Label>User ID</Form.Label>
+                <Form.Control type="text" placeholder="User ID" />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group className="mb-3">
+                <Form.Label>Phone Number</Form.Label>
+                <Form.Control type="text" placeholder="Phone number" />
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <Button variant="primary" onClick={handleNext} style={{ width: "100%" }}>
+            Next
+          </Button>
+        </Form>
+      </div>
+    </div>
+  );
+
   return (
     <>
-      <Header />
+      <Header onAddUser={openModal} />
       <Container
         fluid
         style={{
@@ -231,6 +361,33 @@ export default function Dashboard() {
           </Col>
         </Row>
       </Container>
+
+      {/* Modal */}
+       <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        style={{
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            width: "90%",
+            maxWidth: "800px",
+            maxHeight: "90vh",
+            overflowY: "auto",
+            padding: "1rem",
+            borderRadius: "10px",
+          },
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          },
+        }}
+      >
+        {renderModalContent()}
+      </Modal>
     </>
   );
 }
