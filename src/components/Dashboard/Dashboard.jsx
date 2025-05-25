@@ -90,131 +90,295 @@ const users = [
 export default function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [step, setStep] = useState("personalDetails");
+  const [showRoomField, setShowRoomField] = useState(false);
+  const [devices, setDevices] = useState(["Light 1", "AC 1.5", "Fan", "Other Item"]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
     setStep("personalDetails"); // Reset to the first step when closing
   };
-    // Function to handle the next step in the modal
-  const handleNext = () => setStep("servicesDetails");
-    // Function to handle the previous step in the modal
-  const renderModalContent = () => (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        gap: "2rem",
-        flexWrap: "wrap",
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "200px",
-          borderRight: "2px solid #e0e0e0",
-          paddingBottom: "1rem",
-        }}
-      >
-        <h4 className="mb-4">Add User</h4>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+  // Function to handle the next step in the modal
+    const handleNext = () => {
+    setStep("servicesDetails");
+    setShowRoomField(false); // Ensure Room Name field is hidden initially
+  };
+
+  const handleCreateUser = (e) => {
+    e.preventDefault();
+    setShowRoomField(true); // Show Room Name field
+  };
+
+  const handleAddRoom = () => {
+    // Show device buttons when Add Room is clicked
+    setDevices(["Light 1", "AC 1.5", "Fan", "Other Item"]);
+  };
+
+  const renderModalContent = () => {
+    if (step === "personalDetails") {
+      return (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "2rem",
+            flexWrap: "wrap",
+          }}
+        >
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              color: step === "personalDetails" ? "#0d6efd" : "#000",
+              width: "100%",
+              maxWidth: "200px",
+              borderRight: "2px solid #e0e0e0",
+              paddingBottom: "1rem",
             }}
           >
-            <div
-              style={{
-                width: "30px",
-                height: "30px",
-                borderRadius: "50%",
-                border: `2px solid ${step === "personalDetails" ? "#0d6efd" : "#ccc"}`,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              1
+            <h4 className="mb-4">Add User</h4>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  color: step === "personalDetails" ? "#0d6efd" : "#000",
+                }}
+              >
+                <div
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: "50%",
+                    border: `2px solid ${step === "personalDetails" ? "#0d6efd" : "#ccc"}`,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  1
+                </div>
+                <span>Personal Details</span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  color: step === "servicesDetails" ? "#0d6efd" : "#000",
+                }}
+              >
+                <div
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: "50%",
+                    border: `2px solid ${step === "servicesDetails" ? "#0d6efd" : "#ccc"}`,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  2
+                </div>
+                <span>Services</span>
+              </div>
             </div>
-            <span>Personal Details</span>
           </div>
+
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              color: step === "servicesDetails" ? "#0d6efd" : "#000",
+              flex: 1,
+              padding: "10px",
+              background: "#f0f0f0",
+              borderRadius: "20px",
+              width: "100%",
             }}
           >
-            <div
-              style={{
-                width: "30px",
-                height: "30px",
-                borderRadius: "50%",
-                border: `2px solid ${step === "servicesDetails" ? "#0d6efd" : "#ccc"}`,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              2
-            </div>
-            <span>Services</span>
+            <h5>Personal Details</h5>
+            <Form style={{ width: "100%", height: "100%" }}>
+              <Form.Group className="mb-3">
+                <Form.Label>Name</Form.Label>
+                <Form.Control type="text" placeholder="Enter name" />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>CNIC Number</Form.Label>
+                <Form.Control type="text" placeholder="Enter CNIC" />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>Address</Form.Label>
+                <Form.Control type="text" placeholder="Enter address" />
+              </Form.Group>
+
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label>User ID</Form.Label>
+                    <Form.Control type="text" placeholder="User ID" />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Phone Number</Form.Label>
+                    <Form.Control type="text" placeholder="Phone number" />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              <Button variant="primary" onClick={handleNext} style={{ width: "100%" }}>
+                Next
+              </Button>
+            </Form>
           </div>
         </div>
-      </div>
+      );
+    } else if (step === "servicesDetails") {
+      return (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "2rem",
+            flexWrap: "wrap",
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "200px",
+              borderRight: "2px solid #e0e0e0",
+              paddingBottom: "1rem",
+            }}
+          >
+            <h4 className="mb-4">Add User</h4>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  color: step === "personalDetails" ? "#0d6efd" : "#000",
+                }}
+              >
+                <div
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: "50%",
+                    border: `2px solid ${step === "personalDetails" ? "#0d6efd" : "#ccc"}`,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  1
+                </div>
+                <span>Personal Details</span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  color: step === "servicesDetails" ? "#0d6efd" : "#000",
+                }}
+              >
+                <div
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: "50%",
+                    border: `2px solid ${step === "servicesDetails" ? "#0d6efd" : "#ccc"}`,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  2
+                </div>
+                <span>Services</span>
+              </div>
+            </div>
+          </div>
 
-      <div
-        style={{
-          flex: 1,
-          padding: "10px",
-          background: "#f0f0f0",
-          borderRadius: "20px",
-          width: "100%",
-        }}
-      >
-        <h5>Personal Details</h5>
-        <Form>
-          <Form.Group className="mb-3">
-            <Form.Label>Name</Form.Label>
-            <Form.Control type="text" placeholder="Enter name" />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>CNIC Number</Form.Label>
-            <Form.Control type="text" placeholder="Enter CNIC" />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Address</Form.Label>
-            <Form.Control type="text" placeholder="Enter address" />
-          </Form.Group>
-
-          <Row>
-            <Col>
-              <Form.Group className="mb-3">
-                <Form.Label>User ID</Form.Label>
-                <Form.Control type="text" placeholder="User ID" />
+          <div
+            style={{
+              flex: 1,
+              padding: "10px",
+              background: "#f0f0f0",
+              borderRadius: "20px",
+              width: "100%",
+            }}
+          >
+            <h5>Services Details</h5>
+            <Form style={{ width: "100%", height: "100%" }} onSubmit={handleCreateUser}>
+              <Form.Group style={{display:"inline-block"}}  className="mb-3 w-50">
+                <Form.Label>Services</Form.Label>
+                <Form.Control as="select">
+                  <option>EMS</option>
+                  <option>EMS (IR)</option>
+                  <option>Automation</option>
+                </Form.Control>
               </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group className="mb-3">
-                <Form.Label>Phone Number</Form.Label>
-                <Form.Control type="text" placeholder="Phone number" />
-              </Form.Group>
-            </Col>
-          </Row>
 
-          <Button variant="primary" onClick={handleNext} style={{ width: "100%" }}>
-            Next
-          </Button>
-        </Form>
-      </div>
-    </div>
-  );
+              <Form.Group style={{display:"inline-block"}}  className="mb-3 w-50">
+                <Form.Label>User Type</Form.Label>
+                <Form.Control as="select">
+                  <option>Commercial(3KW)</option>
+                  <option>Residential(3KW)</option>
+                </Form.Control>
+              </Form.Group>
+
+              {showRoomField && (
+                <>
+                  <h5 style={{ marginTop: 24 }}>Add Room Details</h5>
+                  <Form.Group style={{ display: "inline-block" }} className="mb-3 w-50">
+                    <Form.Label>Room Name:</Form.Label>
+                    <Form.Control type="text" placeholder="Enter room name" />
+                  </Form.Group>
+
+                  <Form.Group style={{ display: "inline-block" }} className="ms-3">
+                    <Form.Check type="checkbox" label="Monitoring" id="monitoringCheckbox" />
+                  </Form.Group>
+
+                  <Button variant="primary" style={{ width: "100%" }} onClick={handleAddRoom}>
+                    Add Room
+                  </Button>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label>Devices</Form.Label>
+                    <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                      {devices.map((device, index) => (
+                        <Button
+                          key={index}
+                          variant="outline-secondary"
+                          style={{ borderRadius: "20px" }}
+                        >
+                          {device}
+                        </Button>
+                      ))}
+                      <Button
+                        variant="outline-primary"
+                        style={{ borderRadius: "20px" }}
+                      >
+                        + Add
+                      </Button>
+                    </div>
+                  </Form.Group>
+                </>
+              )}
+
+              {!showRoomField && (
+                <Button variant="primary" type="submit" style={{ width: "100%" }}>
+                  Create User
+                </Button>
+              )}
+            </Form>
+          </div>
+        </div>
+      );
+    }
+  };
 
   return (
     <>
@@ -363,7 +527,7 @@ export default function Dashboard() {
       </Container>
 
       {/* Modal */}
-       <Modal
+      <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         style={{

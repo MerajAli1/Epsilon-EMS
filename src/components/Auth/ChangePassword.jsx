@@ -2,10 +2,23 @@ import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
 import login from "../../assets/login.png";
 import Header from "../Navbar";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+
 const ChangePassword = () => {
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const toggleNewPasswordVisibility = () => {
+    setShowNewPassword(!showNewPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   return (
     <>
-      <Header/>
+      <Header />
       <Container
         fluid
         style={{ minHeight: "100vh", backgroundColor: "#f7f7f7" }}
@@ -17,18 +30,38 @@ const ChangePassword = () => {
               <Form.Group className="mb-3" controlId="formPassword">
                 <Form.Label>New Password</Form.Label>
                 <InputGroup>
-                  <Form.Control type="password" placeholder="New Password" />
-                  <InputGroup.Text>
-                    <i className="bi bi-eye-slash"></i>
+                  <Form.Control
+                    type={showNewPassword ? "text" : "password"}
+                    placeholder="New Password"
+                  />
+                  <InputGroup.Text
+                    onClick={toggleNewPasswordVisibility}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <i
+                      className={`bi ${
+                        showNewPassword ? "bi-eye" : "bi-eye-slash"
+                      }`}
+                    ></i>
                   </InputGroup.Text>
                 </InputGroup>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formPassword">
                 <Form.Label>Confirm Password</Form.Label>
                 <InputGroup>
-                  <Form.Control type="password" placeholder="Confirm Password" />
-                  <InputGroup.Text>
-                    <i className="bi bi-eye-slash"></i>
+                  <Form.Control
+                    type={showConfirmPassword ? "text" : "password"}
+                    placeholder="Confirm Password"
+                  />
+                  <InputGroup.Text
+                    onClick={toggleConfirmPasswordVisibility}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <i
+                      className={`bi ${
+                        showConfirmPassword ? "bi-eye" : "bi-eye-slash"
+                      }`}
+                    ></i>
                   </InputGroup.Text>
                 </InputGroup>
               </Form.Group>
@@ -45,7 +78,7 @@ const ChangePassword = () => {
                   to={"/"}
                   style={{ color: "#007bff", textDecoration: "none" }}
                 >
-                 Back to Login
+                  Back to Login
                 </Link>
               </div>
             </Form>

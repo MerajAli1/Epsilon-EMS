@@ -7,6 +7,7 @@ import { useState } from "react";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -19,6 +20,10 @@ const LoginPage = () => {
     } else {
       alert("Invalid email or password");
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -51,13 +56,20 @@ const LoginPage = () => {
                 <Form.Label>Password</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <InputGroup.Text>
-                    <i className="bi bi-eye-slash"></i>
+                  <InputGroup.Text
+                    onClick={togglePasswordVisibility}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <i
+                      className={`bi ${
+                        showPassword ? "bi-eye" : "bi-eye-slash"
+                      }`}
+                    ></i>
                   </InputGroup.Text>
                 </InputGroup>
               </Form.Group>
