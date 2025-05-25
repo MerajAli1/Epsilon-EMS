@@ -91,15 +91,27 @@ export default function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [step, setStep] = useState("personalDetails");
   const [showRoomField, setShowRoomField] = useState(false);
-  const [devices, setDevices] = useState(["Light 1", "AC 1.5", "Fan", "Other Item"]);
+  const [devices, setDevices] = useState([
+    "Light 1",
+    "AC 1.5",
+    "Fan",
+    "Other Item",
+  ]);
+
+  const [isAddApplianceModalOpen, setIsAddApplianceModalOpen] = useState(false);
+  const [applianceName, setApplianceName] = useState("");
+  const [applianceIcon, setApplianceIcon] = useState("bi bi-pc-display");
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
     setStep("personalDetails"); // Reset to the first step when closing
   };
+  const openAddApplianceModal = () => setIsAddApplianceModalOpen(true);
+  const closeAddApplianceModal = () => setIsAddApplianceModalOpen(false);
+
   // Function to handle the next step in the modal
-    const handleNext = () => {
+  const handleNext = () => {
     setStep("servicesDetails");
     setShowRoomField(false); // Ensure Room Name field is hidden initially
   };
@@ -134,7 +146,9 @@ export default function Dashboard() {
             }}
           >
             <h4 className="mb-4">Add User</h4>
-            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+            >
               <div
                 style={{
                   display: "flex",
@@ -148,7 +162,9 @@ export default function Dashboard() {
                     width: "30px",
                     height: "30px",
                     borderRadius: "50%",
-                    border: `2px solid ${step === "personalDetails" ? "#0d6efd" : "#ccc"}`,
+                    border: `2px solid ${
+                      step === "personalDetails" ? "#0d6efd" : "#ccc"
+                    }`,
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
@@ -171,7 +187,9 @@ export default function Dashboard() {
                     width: "30px",
                     height: "30px",
                     borderRadius: "50%",
-                    border: `2px solid ${step === "servicesDetails" ? "#0d6efd" : "#ccc"}`,
+                    border: `2px solid ${
+                      step === "servicesDetails" ? "#0d6efd" : "#ccc"
+                    }`,
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
@@ -225,9 +243,22 @@ export default function Dashboard() {
                 </Col>
               </Row>
 
-              <Button variant="primary" onClick={handleNext} style={{ width: "100%" }}>
+              <button
+                variant="primary"
+                onClick={handleNext}
+                style={{
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  border: "none",
+                  padding: "0.6rem 1.5rem",
+                  borderRadius: "999px",
+                  fontWeight: "bold",
+                  fontSize: "1rem",
+                  cursor: "pointer",
+                }}
+              >
                 Next
-              </Button>
+              </button>
             </Form>
           </div>
         </div>
@@ -251,7 +282,9 @@ export default function Dashboard() {
             }}
           >
             <h4 className="mb-4">Add User</h4>
-            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+            >
               <div
                 style={{
                   display: "flex",
@@ -265,7 +298,9 @@ export default function Dashboard() {
                     width: "30px",
                     height: "30px",
                     borderRadius: "50%",
-                    border: `2px solid ${step === "personalDetails" ? "#0d6efd" : "#ccc"}`,
+                    border: `2px solid ${
+                      step === "personalDetails" ? "#0d6efd" : "#ccc"
+                    }`,
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
@@ -288,7 +323,9 @@ export default function Dashboard() {
                     width: "30px",
                     height: "30px",
                     borderRadius: "50%",
-                    border: `2px solid ${step === "servicesDetails" ? "#0d6efd" : "#ccc"}`,
+                    border: `2px solid ${
+                      step === "servicesDetails" ? "#0d6efd" : "#ccc"
+                    }`,
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
@@ -311,8 +348,14 @@ export default function Dashboard() {
             }}
           >
             <h5>Services Details</h5>
-            <Form style={{ width: "100%", height: "100%" }} onSubmit={handleCreateUser}>
-              <Form.Group style={{display:"inline-block"}}  className="mb-3 w-50">
+            <Form
+              style={{ width: "100%", height: "100%" }}
+              onSubmit={handleCreateUser}
+            >
+              <Form.Group
+                style={{ display: "inline-block" }}
+                className="mb-3 w-50"
+              >
                 <Form.Label>Services</Form.Label>
                 <Form.Control as="select">
                   <option>EMS</option>
@@ -321,7 +364,10 @@ export default function Dashboard() {
                 </Form.Control>
               </Form.Group>
 
-              <Form.Group style={{display:"inline-block"}}  className="mb-3 w-50">
+              <Form.Group
+                style={{ display: "inline-block" }}
+                className="mb-3 w-50"
+              >
                 <Form.Label>User Type</Form.Label>
                 <Form.Control as="select">
                   <option>Commercial(3KW)</option>
@@ -332,22 +378,32 @@ export default function Dashboard() {
               {showRoomField && (
                 <>
                   <h5 style={{ marginTop: 24 }}>Add Room Details</h5>
-                  <Form.Group style={{ display: "inline-block" }} className="mb-3 w-50">
+                  <Form.Group
+                    style={{ display: "inline-block" }}
+                    className="mb-3 w-50"
+                  >
                     <Form.Label>Room Name:</Form.Label>
                     <Form.Control type="text" placeholder="Enter room name" />
                   </Form.Group>
 
-                  <Form.Group style={{ display: "inline-block" }} className="ms-3">
-                    <Form.Check type="checkbox" label="Monitoring" id="monitoringCheckbox" />
+                  <Form.Group
+                    style={{ display: "inline-block" }}
+                    className="ms-3"
+                  >
+                    <Form.Check
+                      type="checkbox"
+                      label="Monitoring"
+                      id="monitoringCheckbox"
+                    />
                   </Form.Group>
 
-                  <Button variant="primary" style={{ width: "100%" }} onClick={handleAddRoom}>
-                    Add Room
-                  </Button>
+                 
 
                   <Form.Group className="mb-3">
                     <Form.Label>Devices</Form.Label>
-                    <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                    <div
+                      style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}
+                    >
                       {devices.map((device, index) => (
                         <Button
                           key={index}
@@ -356,22 +412,53 @@ export default function Dashboard() {
                         >
                           {device}
                         </Button>
-                      ))}
+                      ))}{" "}
                       <Button
                         variant="outline-primary"
                         style={{ borderRadius: "20px" }}
+                        onClick={openAddApplianceModal}
                       >
                         + Add
                       </Button>
+                       <button
+                    variant="primary"
+                    style={{
+                      display: "block",
+                      backgroundColor: "#007bff",
+                      color: "white",
+                      border: "none",
+                      padding: "0.6rem 1.5rem",
+                      borderRadius: "999px",
+                      fontWeight: "bold",
+                      fontSize: "1rem",
+                      cursor: "pointer",
+                    }}
+                    onClick={handleAddRoom}
+                  >
+                    Add Room
+                  </button>
                     </div>
                   </Form.Group>
                 </>
               )}
 
               {!showRoomField && (
-                <Button variant="primary" type="submit" style={{ width: "100%" }}>
+                <button
+                  variant="primary"
+                  type="submit"
+                  style={{
+                    backgroundColor: "#007bff",
+                    color: "white",
+                    border: "none",
+                    padding: "0.6rem 1.5rem",
+                    borderRadius: "999px",
+                    fontWeight: "bold",
+                    fontSize: "1rem",
+                    cursor: "pointer",
+                  }}
+                >
                   Create User
-                </Button>
+                </button>
               )}
             </Form>
           </div>
@@ -551,6 +638,92 @@ export default function Dashboard() {
         }}
       >
         {renderModalContent()}
+      </Modal>
+
+      {/* Add Appliance Modal */}
+      <Modal
+        isOpen={isAddApplianceModalOpen}
+        onRequestClose={closeAddApplianceModal}
+        style={{
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            width: "90%",
+            height: "50vh",
+            maxWidth: "400px",
+            padding: "2rem",
+            borderRadius: "20px",
+            backgroundColor: "#f9f9f9",
+            border: "none",
+          },
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          },
+        }}
+      >
+        <h3 style={{ marginBottom: "1.5rem" }}>Add Appliances</h3>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "1.5rem",
+          }}
+        >
+          <button
+            style={{
+              backgroundColor: "#e0e0e0",
+              border: "none",
+              borderRadius: "12px",
+              padding: "0.5rem 1rem",
+              fontSize: "1.5rem",
+              marginRight: "1rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <i className="bi bi-hdd" style={{ marginRight: "0.5rem" }}></i>
+            <i className="bi bi-caret-down-fill"></i>
+          </button>
+
+          <input
+            type="text"
+            value={applianceName}
+            onChange={(e) => setApplianceName(e.target.value)}
+            style={{
+              backgroundColor: "#ddd",
+              border: "none",
+              borderRadius: "12px",
+              padding: "0.6rem 1rem",
+              fontSize: "1rem",
+              width: "100%",
+            }}
+            placeholder="Appliance Name"
+          />
+        </div>
+
+        <div style={{ textAlign: "right" }}>
+          <button
+            onClick={closeAddApplianceModal}
+            style={{
+              backgroundColor: "#007bff",
+              color: "white",
+              border: "none",
+              padding: "0.6rem 1.5rem",
+              borderRadius: "999px",
+              fontWeight: "bold",
+              fontSize: "1rem",
+              cursor: "pointer",
+            }}
+          >
+            Done
+          </button>
+        </div>
       </Modal>
     </>
   );
