@@ -9,7 +9,7 @@ const EmailVerification = () => {
 
   const handleVerify = () => {
     if (otp.join("") === "000000") {
-      navigate("/changePassword");
+      navigate("/dashboard");
     } else {
       alert("Invalid OTP");
       setOtp(["", "", "", "", "", ""]);
