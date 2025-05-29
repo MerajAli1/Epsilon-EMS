@@ -3,7 +3,8 @@ import Navbar from "react-bootstrap/Navbar";
 
 const Header = () => {
   return (
-    <Navbar className="bg-body-tertiary">
+   <div style={{ backgroundColor: "white" }}>
+     <Navbar>
       <Container>
         <h1 className="display-5">Epsilon EMS</h1>
         <Navbar.Toggle />
@@ -15,6 +16,7 @@ const Header = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+   </div>
   );
 };
 
