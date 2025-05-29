@@ -3,6 +3,7 @@ import Login from "../components/Auth/Login";
 import EmailVerification from "../components/Auth/EmailVerification";
 import ChangePassword from "../components/Auth/ChangePassword";
 import Dashboard from "../components/Dashboard/Dashboard";
+import UserDashboard from "../userComponent/Dashboard";
 const AppRouter = () => {
   return (
     <>
@@ -15,6 +16,7 @@ const AppRouter = () => {
           />
           <Route path="/changePassword" element={<ChangePassword/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="/userdashboard" element={<UserDashboard/>} />
         </Routes>
       </BrowserRouter>
     </>
