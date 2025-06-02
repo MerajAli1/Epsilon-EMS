@@ -86,7 +86,8 @@ const users = [
   },
 ];
 
-// Added mobile responsiveness to the Dashboard component
+// Added mobile responsiveness to the Dashboard comp
+// onent
 export default function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [step, setStep] = useState("personalDetails");
@@ -101,6 +102,7 @@ export default function Dashboard() {
   const [isAddApplianceModalOpen, setIsAddApplianceModalOpen] = useState(false);
   const [applianceName, setApplianceName] = useState("");
   const [applianceIcon, setApplianceIcon] = useState("bi bi-pc-display");
+  const [selectedService, setSelectedService] = useState("EMS");
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
@@ -124,6 +126,389 @@ export default function Dashboard() {
   const handleAddRoom = () => {
     // Show device buttons when Add Room is clicked
     setDevices(["Light 1", "AC 1.5", "Fan", "Other Item"]);
+  };
+
+  const renderRoomFields = () => {
+    // EMS (Image 1)
+    if (selectedService === "EMS") {
+      return (
+        // Only show "Add Room" button (Image 1)
+        <button
+          variant="primary"
+          type="submit"
+          style={{
+            backgroundColor: "#007bff",
+            color: "white",
+            border: "none",
+            padding: "0.6rem 1.5rem",
+            borderRadius: "999px",
+            fontWeight: "bold",
+            fontSize: "1rem",
+            cursor: "pointer",
+            marginTop: 24,
+          }}
+        >
+          Create User
+        </button>
+      );
+    }
+    // EMS (IR) (Image 2)
+    if (selectedService === "EMS (IR)") {
+      return (
+        <>
+          <h5 style={{ marginTop: 24 }}>Add Room Details</h5>
+          <Form.Group
+            style={{ display: "inline-block" }}
+            className="mb-3 w-50"
+          >
+            <Form.Label>Room Name:</Form.Label>
+            <Form.Control type="text" placeholder="Enter room name" />
+          </Form.Group>
+          <button
+            variant="primary"
+            style={{
+              display: "block",
+              backgroundColor: "#007bff",
+              color: "white",
+              border: "none",
+              padding: "0.6rem 1.5rem",
+              borderRadius: "999px",
+              fontWeight: "bold",
+              fontSize: "1rem",
+              cursor: "pointer",
+              marginTop: 24,
+            }}
+            onClick={handleAddRoom}
+          >
+            Add Room
+          </button>
+        </>
+      );
+    }
+    // Automation (Image 3)
+    if (selectedService === "Automation") {
+      return (
+        <>
+          <h5 style={{ marginTop: 24 }}>Add Room Details</h5>
+          <Form.Group
+            style={{ display: "inline-block" }}
+            className="mb-3 w-50"
+          >
+            <Form.Label>Room Name:</Form.Label>
+            <Form.Control type="text" placeholder="Enter room name" />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Devices</Form.Label>
+            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+              {devices.map((device, index) => (
+                <Button
+                  key={index}
+                  variant="outline-secondary"
+                  style={{ borderRadius: "20px" }}
+                >
+                  {device}
+                </Button>
+              ))}
+              <Button
+                variant="outline-primary"
+                style={{ borderRadius: "20px" }}
+                onClick={openAddApplianceModal}
+              >
+                + Add
+              </Button>
+            </div>
+          </Form.Group>
+          <button
+            variant="primary"
+            style={{
+              display: "block",
+              backgroundColor: "#007bff",
+              color: "white",
+              border: "none",
+              padding: "0.6rem 1.5rem",
+              borderRadius: "999px",
+              fontWeight: "bold",
+              fontSize: "1rem",
+              cursor: "pointer",
+            }}
+            onClick={handleAddRoom}
+          >
+            Add Room
+          </button>
+        </>
+      );
+    }
+    // Automation(HD) (Image 4)
+    if (selectedService === "Automation(HD)") {
+      return (
+        <>
+          <h5 style={{ marginTop: 24 }}>Add Room Details</h5>
+          <Form.Group
+            style={{ display: "inline-block" }}
+            className="mb-3 w-50"
+          >
+            <Form.Label>Room Name:</Form.Label>
+            <Form.Control type="text" placeholder="Enter room name" />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Devices</Form.Label>
+            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+              {devices.map((device, index) => (
+                <Button
+                  key={index}
+                  variant="outline-secondary"
+                  style={{ borderRadius: "20px" }}
+                >
+                  {device}
+                </Button>
+              ))}
+              <Button
+                variant="outline-primary"
+                style={{ borderRadius: "20px" }}
+                onClick={openAddApplianceModal}
+              >
+                + Add
+              </Button>
+            </div>
+          </Form.Group>
+          <button
+            variant="primary"
+            style={{
+              display: "block",
+              backgroundColor: "#007bff",
+              color: "white",
+              border: "none",
+              padding: "0.6rem 1.5rem",
+              borderRadius: "999px",
+              fontWeight: "bold",
+              fontSize: "1rem",
+              cursor: "pointer",
+            }}
+            onClick={handleAddRoom}
+          >
+            Add Room
+          </button>
+        </>
+      );
+    }
+    // EMS+Automation (Image 5)
+    if (selectedService === "EMS+Automation") {
+      return (
+        <>
+          <h5 style={{ marginTop: 24 }}>Add Room Details</h5>
+          <Form.Group
+            style={{ display: "inline-block" }}
+            className="mb-3 w-50"
+          >
+            <Form.Label>Room Name:</Form.Label>
+            <Form.Control type="text" placeholder="Enter room name" />
+          </Form.Group>
+          <Form.Group
+            style={{ display: "inline-block" }}
+            className="ms-3"
+          >
+            <Form.Check
+              type="checkbox"
+              label="Monitoring"
+              id="monitoringCheckbox"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Devices</Form.Label>
+            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+              {devices.map((device, index) => (
+                <Button
+                  key={index}
+                  variant="outline-secondary"
+                  style={{ borderRadius: "20px" }}
+                >
+                  {device}
+                </Button>
+              ))}
+              <Button
+                variant="outline-primary"
+                style={{ borderRadius: "20px" }}
+                onClick={openAddApplianceModal}
+              >
+                + Add
+              </Button>
+            </div>
+          </Form.Group>
+          <button
+            variant="primary"
+            style={{
+              display: "block",
+              backgroundColor: "#007bff",
+              color: "white",
+              border: "none",
+              padding: "0.6rem 1.5rem",
+              borderRadius: "999px",
+              fontWeight: "bold",
+              fontSize: "1rem",
+              cursor: "pointer",
+            }}
+            onClick={handleAddRoom}
+          >
+            Add Room
+          </button>
+        </>
+      );
+    }
+    // EMS(IR) + Automation (Image 3)
+    if (selectedService === "EMS(IR) + Automation") {
+      return (
+        <>
+          <h5 style={{ marginTop: 24 }}>Add Room Details</h5>
+          <Form.Group
+            style={{ display: "inline-block" }}
+            className="mb-3 w-50"
+          >
+            <Form.Label>Room Name:</Form.Label>
+            <Form.Control type="text" placeholder="Enter room name" />
+          </Form.Group>
+          <Form.Group style={{ display: "inline-block" }} className="ms-3">
+            <Form.Check
+              type="checkbox"
+              label="Monitoring"
+              id="monitoringCheckbox"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Devices</Form.Label>
+            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+              {devices.map((device, index) => (
+                <Button
+                  key={index}
+                  variant="outline-secondary"
+                  style={{ borderRadius: "20px" }}
+                >
+                  {device}
+                </Button>
+              ))}
+              <Button
+                variant="outline-primary"
+                style={{ borderRadius: "20px" }}
+                onClick={openAddApplianceModal}
+              >
+                + Add
+              </Button>
+            </div>
+          </Form.Group>
+          <button
+            variant="primary"
+            style={{
+              display: "block",
+              backgroundColor: "#007bff",
+              color: "white",
+              border: "none",
+              padding: "0.6rem 1.5rem",
+              borderRadius: "999px",
+              fontWeight: "bold",
+              fontSize: "1rem",
+              cursor: "pointer",
+            }}
+            onClick={handleAddRoom}
+          >
+            Add Room
+          </button>
+        </>
+      );
+    }
+    // EMS + EMS(IR) + Automation (Image 2)
+    if (selectedService === "EMS + EMS(IR) + Automation") {
+      return (
+        <>
+          <h5 style={{ marginTop: 24 }}>Add Room Details</h5>
+          <Form.Group
+            style={{ display: "inline-block" }}
+            className="mb-3 w-50"
+          >
+            <Form.Label>Room Name:</Form.Label>
+            <Form.Control type="text" placeholder="Enter room name" />
+          </Form.Group>
+          <Form.Group style={{ display: "inline-block" }} className="ms-3">
+            <Form.Check
+              type="checkbox"
+              label="Monitoring"
+              id="monitoringCheckbox"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Devices</Form.Label>
+            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+              {devices.map((device, index) => (
+                <Button
+                  key={index}
+                  variant="outline-secondary"
+                  style={{ borderRadius: "20px" }}
+                >
+                  {device}
+                </Button>
+              ))}
+              <Button
+                variant="outline-primary"
+                style={{ borderRadius: "20px" }}
+                onClick={openAddApplianceModal}
+              >
+                + Add
+              </Button>
+            </div>
+          </Form.Group>
+          <button
+            variant="primary"
+            style={{
+              display: "block",
+              backgroundColor: "#007bff",
+              color: "white",
+              border: "none",
+              padding: "0.6rem 1.5rem",
+              borderRadius: "999px",
+              fontWeight: "bold",
+              fontSize: "1rem",
+              cursor: "pointer",
+            }}
+            onClick={handleAddRoom}
+          >
+            Add Room
+          </button>
+        </>
+      );
+    }
+    // EMS + EMS(IR) (Image 1)
+    if (selectedService === "EMS + EMS(IR)") {
+      return (
+        <>
+          <h5 style={{ marginTop: 24 }}>Add Room Details</h5>
+          <Form.Group
+            style={{ display: "inline-block" }}
+            className="mb-3 w-50"
+          >
+            <Form.Label>Room Name:</Form.Label>
+            <Form.Control type="text" placeholder="Enter room name" />
+          </Form.Group>
+          <button
+            variant="primary"
+            style={{
+              display: "block",
+              backgroundColor: "#007bff",
+              color: "white",
+              border: "none",
+              padding: "0.6rem 1.5rem",
+              borderRadius: "999px",
+              fontWeight: "bold",
+              fontSize: "1rem",
+              cursor: "pointer",
+              marginTop: 24,
+            }}
+            onClick={handleAddRoom}
+          >
+            Add Room
+          </button>
+        </>
+      );
+    }
+    // fallback
+    return null;
   };
 
   const renderModalContent = () => {
@@ -357,10 +742,22 @@ export default function Dashboard() {
                 className="mb-3 w-50"
               >
                 <Form.Label>Services</Form.Label>
-                <Form.Control as="select">
-                  <option>EMS</option>
-                  <option>EMS (IR)</option>
-                  <option>Automation</option>
+                <Form.Control
+                  as="select"
+                  value={selectedService}
+                  onChange={(e) => {
+                    setSelectedService(e.target.value);
+                    setShowRoomField(false);
+                  }}
+                >
+                  <option value="EMS">EMS</option>
+                  <option value="EMS (IR)">EMS (IR)</option>
+                  <option value="Automation">Automation</option>
+                  <option value="Automation(HD)">Automation(HD)</option>
+                  <option value="EMS+Automation">EMS+Automation</option>
+                  <option value="EMS(IR) + Automation">EMS(IR) + Automation</option>
+                  <option value="EMS + EMS(IR) + Automation">EMS + EMS(IR) + Automation</option>
+                  <option value="EMS + EMS(IR)">EMS + EMS(IR)</option>
                 </Form.Control>
               </Form.Group>
 
@@ -375,55 +772,16 @@ export default function Dashboard() {
                 </Form.Control>
               </Form.Group>
 
-              {showRoomField && (
-                <>
-                  <h5 style={{ marginTop: 24 }}>Add Room Details</h5>
-                  <Form.Group
-                    style={{ display: "inline-block" }}
-                    className="mb-3 w-50"
-                  >
-                    <Form.Label>Room Name:</Form.Label>
-                    <Form.Control type="text" placeholder="Enter room name" />
-                  </Form.Group>
-
-                  <Form.Group
-                    style={{ display: "inline-block" }}
-                    className="ms-3"
-                  >
-                    <Form.Check
-                      type="checkbox"
-                      label="Monitoring"
-                      id="monitoringCheckbox"
-                    />
-                  </Form.Group>
-
-                 
-
-                  <Form.Group className="mb-3">
-                    <Form.Label>Devices</Form.Label>
-                    <div
-                      style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}
-                    >
-                      {devices.map((device, index) => (
-                        <Button
-                          key={index}
-                          variant="outline-secondary"
-                          style={{ borderRadius: "20px" }}
-                        >
-                          {device}
-                        </Button>
-                      ))}{" "}
-                      <Button
-                        variant="outline-primary"
-                        style={{ borderRadius: "20px" }}
-                        onClick={openAddApplianceModal}
-                      >
-                        + Add
-                      </Button>
-                       <button
+              {/* Show fields based on selected service */}
+              {selectedService === "EMS"
+                ? renderRoomFields()
+                : showRoomField
+                ? renderRoomFields()
+                : (
+                  <button
                     variant="primary"
+                    type="submit"
                     style={{
-                      display: "block",
                       backgroundColor: "#007bff",
                       color: "white",
                       border: "none",
@@ -433,33 +791,11 @@ export default function Dashboard() {
                       fontSize: "1rem",
                       cursor: "pointer",
                     }}
-                    onClick={handleAddRoom}
                   >
-                    Add Room
+                    {selectedService === "EMS" ? "Create User" : "Create User"}
                   </button>
-                    </div>
-                  </Form.Group>
-                </>
-              )}
-
-              {!showRoomField && (
-                <button
-                  variant="primary"
-                  type="submit"
-                  style={{
-                    backgroundColor: "#007bff",
-                    color: "white",
-                    border: "none",
-                    padding: "0.6rem 1.5rem",
-                    borderRadius: "999px",
-                    fontWeight: "bold",
-                    fontSize: "1rem",
-                    cursor: "pointer",
-                  }}
-                >
-                  Create User
-                </button>
-              )}
+                )
+              }
             </Form>
           </div>
         </div>
