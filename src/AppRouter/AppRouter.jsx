@@ -9,6 +9,8 @@ import EMSUser from "../userComponent/EMSUser";
 import EMSIR from "../userComponent/EMSIR";
 import Automation from "../userComponent/Automation";
 import EmsAndEMSIR from "../userComponent/EmsAndEMSIR";
+import EmsAndEmsIRAutomation from "../userComponent/EmsAndEmsIRAutomation";
+import AutomationHD from "../userComponent/AutomationHD";
 const AppRouter = () => {
   return (
     <>
@@ -29,7 +31,10 @@ const AppRouter = () => {
           <Route path="/emsuser" element={<EMSUser/>} />
           <Route path="/emsir" element={<EMSIR/>} />
           <Route path="/automation" element={<Automation/>} />
+          
           <Route path="/emsAndEmsir" element={<EmsAndEMSIR/>} />
+          <Route path="/emsAndEmsirAutomation" element={<EmsAndEmsIRAutomation/>} />
+          <Route path="/automationhd" element={<AutomationHD/>} />
         </Routes>
         {/* automationhd */}
         {/* ems+emsir */}
