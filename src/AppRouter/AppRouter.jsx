@@ -31,6 +31,9 @@ const AppRouter = () => {
           <Route path="/automation" element={<Automation/>} />
           <Route path="/emsAndEmsir" element={<EmsAndEMSIR/>} />
         </Routes>
+        {/* automationhd */}
+        {/* ems+emsir */}
+        {/* ems+emsir+automation */}
       </BrowserRouter>
     </>
   );
